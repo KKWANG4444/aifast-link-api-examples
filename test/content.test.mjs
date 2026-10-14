@@ -51,3 +51,16 @@ test('两种语言保留套餐边界、演示参数及验证范围', () => {
   assert.match(en, /illustrative inputs, not current offers/);
   assert.match(en, /has not performed authenticated paid calls/);
 });
+
+test('中英文入口包含下载及完整 Token 字段说明', () => {
+  const fields = Object.keys(JSON.parse(readFileSync(resolve(root, 'examples/token-cost.json'), 'utf8')));
+  for (const [readme, guide] of [['README.md', 'docs/token-cost.md'], ['README.en.md', 'docs/en/token-cost.md']]) {
+    const entry = readFileSync(resolve(root, readme), 'utf8');
+    const text = readFileSync(resolve(root, guide), 'utf8');
+    assert.ok(entry.includes(`](${guide})`));
+    assert.ok(entry.includes('https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest'));
+    for (const field of fields) assert.ok(text.includes(`\`${field}\``), `${guide}: ${field}`);
+    assert.match(text, /17\.05/);
+    assert.match(text, /缓存|cache/);
+  }
+});

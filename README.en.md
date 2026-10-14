@@ -2,6 +2,8 @@
 
 [简体中文](README.md) · [Online cost calculator](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_calculator) · [Get started](https://docs.aifast.link/en/start/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_start)
 
+[Download offline examples](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token cost formula and input fields](docs/en/token-cost.md)
+
 A dedicated public example repository for **AIFast Link**, covering only `www.aifast.link` and `docs.aifast.link`. This is not an official project of OpenAI, Anthropic or Google.
 
 Estimate token costs, account for **billed retries**, and compare pay-as-you-go with daily-allowance monthly plans before choosing a configuration. Link lists GPT, Claude and Gemini models; GPT / Claude plans apply to specified groups. **Do not assume those plans include the separate Gemini group.**
@@ -9,6 +11,8 @@ Estimate token costs, account for **billed retries**, and compare pay-as-you-go 
 ## Run locally without a key
 
 Node.js 22 or newer. No packages to install, no account required, no network access or paid model calls in the calculator or tests.
+
+Without Git, download the ZIP above, extract it, then run the same `node` commands from that directory.
 
 ```bash
 git clone https://github.com/KKWANG4444/aifast-link-api-examples.git
@@ -29,8 +33,11 @@ All fixtures are **illustrative inputs, not current offers**:
 
 Replace fixture values with your own prices and usage. No currency conversion is performed. Plan inputs are cash costs in CNY; Credits are internal usage units, not USD or a fixed token quantity.
 
+The token example uses one input rate and one output rate. It does not automatically separate cache reads, cache writes, long-context tiers or tool fees. Reconcile those categories separately instead of treating this estimate as a complete bill.
+
 ## Practical guides
 
+- [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
 - [Base URL and protocol setup](docs/en/api-setup.md): Chat Completions, Codex Responses, Claude Code Messages and Gemini scope.
 - [Monthly plan versus pay-as-you-go](docs/en/monthly-plan-vs-payg.md): active days, daily limits, overages and idle time.
 - [401 / 404 / 429 / streaming troubleshooting](docs/en/troubleshooting.md): isolate authentication, paths, quotas and interruptions.

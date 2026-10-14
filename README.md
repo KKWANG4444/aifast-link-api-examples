@@ -2,6 +2,8 @@
 
 [English](README.en.md) · [在线成本计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_calculator) · [Link 开始使用](https://docs.aifast.link/start/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_start)
 
+[下载最新离线算例](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token 成本公式与输入字段](docs/token-cost.md)
+
 这是 **AIFast Link 的独立公开示例仓库**，仅对应 `www.aifast.link` 和 `docs.aifast.link`，不是模型厂商官方项目。
 
 Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组的 GPT / Claude 月卡。这里帮助你先核对接口、权限和完整任务成本，再选择方案。**Gemini 使用独立分组，不能默认包含在 GPT / Claude 月卡中。**
@@ -10,7 +12,7 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
-| 计算 Token 与已计费重试成本 | [离线 Token 算例](examples/token-cost.json) | [浏览器计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_token) |
+| 计算 Token 与已计费重试成本 | [成本公式与可运行算例](docs/token-cost.md) | [浏览器计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_token) |
 | 比较按量与月卡，避免闲置或超额 | [月卡成本比较](docs/monthly-plan-vs-payg.md) | [计费与套餐范围](https://docs.aifast.link/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_payment) |
 | 区分 Chat、Responses、Messages | [Base URL 与协议配置](docs/api-setup.md) | [Link 接口能力矩阵](https://docs.aifast.link/reference/api-compatibility/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_protocols) |
 | 排查 401、404、429、流式中断 | [按现象排错](docs/troubleshooting.md) | [Base URL 检查器](https://docs.aifast.link/tools/base-url-checker/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_baseurl) |
@@ -18,6 +20,8 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 ## 30 秒运行离线成本算例
 
 需要 Node.js 22 或更新版本。没有第三方依赖，不需要安装包、注册或 API Key；下面的程序不联网、不上传输入，也不发起付费模型请求。
+
+没有 Git 时，可从上方下载入口取得 ZIP，解压后在目录内执行相同的 `node` 命令。
 
 ```bash
 git clone https://github.com/KKWANG4444/aifast-link-api-examples.git
@@ -35,6 +39,8 @@ node --test
 - 超额：改为每日 25 Credit，且已确认钱包回退和 0.7 元/Credit 的超额费用，结果 **月卡加超额 270 元**，高于按量 240 元。
 
 修改示例 JSON 为你自己的账单参数再运行。输入费用和输出费用使用同一币种；程序不换算汇率。月卡比较使用人民币实付金额，Credit 是站内额度，不是美元或固定 Token 数量。
+
+Token 算例仅有一种输入单价和一种输出单价，不会自动区分缓存命中、缓存写入、长上下文阶梯或工具费用。存在这些计费项时应按账单分类核算，不能把结果当完整账单。
 
 ## 接入前先区分协议
 
