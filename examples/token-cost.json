@@ -1,0 +1,9 @@
+{
+  "currency": "USD",
+  "inputPrice": 2.5,
+  "outputPrice": 10,
+  "inputTokens": 3000,
+  "outputTokens": 800,
+  "tasks": 1000,
+  "billedRetryPercent": 10
+}

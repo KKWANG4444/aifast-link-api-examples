@@ -1,0 +1,9 @@
+{
+  "name": "aifast-link-api-examples",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AIFast Link API 接入指南与离线 Token、月卡成本算例",
+  "engines": { "node": ">=22" },
+  "scripts": { "test": "node --test", "demo:token": "node scripts/cost.mjs token examples/token-cost.json", "demo:plan": "node scripts/cost.mjs plan examples/monthly-plan.json" }
+}

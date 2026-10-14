@@ -1,0 +1,8 @@
+{
+  "planPrice": 200,
+  "dailyAllowance": 20,
+  "dailyUsage": 10,
+  "usageDays": 20,
+  "dailyPayg": 12,
+  "walletFallback": false
+}
