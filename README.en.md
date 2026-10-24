@@ -39,6 +39,9 @@ The token example uses one input rate and one output rate. It does not automatic
 
 - [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
 - [Base URL and protocol setup](docs/en/api-setup.md): Chat Completions, Codex Responses, Claude Code Messages and Gemini scope.
+- [OpenAI-compatible API scope and endpoint limits](https://docs.aifast.link/en/topics/openai-compatible/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_compatibility): compare protocol paths and compatibility boundaries before switching clients.
+- [API model-not-found troubleshooting](https://docs.aifast.link/en/troubleshooting/model-not-found/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_model_not_found): check the model ID, key access, endpoint and final request URL.
+- [Codex custom provider setup](https://docs.aifast.link/en/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_codex): configure `config.toml`, the Responses API and tool-call checks.
 - [Monthly plan versus pay-as-you-go](docs/en/monthly-plan-vs-payg.md): active days, daily limits, overages and idle time.
 - [401 / 404 / 429 / streaming troubleshooting](docs/en/troubleshooting.md): isolate authentication, paths, quotas and interruptions.
 - [Live model pricing](https://www.aifast.link/pricing?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_pricing) and [plan rules](https://docs.aifast.link/en/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_payment): confirm eligibility before paying.
