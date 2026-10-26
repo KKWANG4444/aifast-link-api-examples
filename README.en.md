@@ -38,7 +38,7 @@ The token example uses one input rate and one output rate. It does not automatic
 ## Practical guides
 
 - [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
-- [Base URL and protocol setup](docs/en/api-setup.md): Chat Completions, Codex Responses, Claude Code Messages and Gemini scope.
+- [OpenAI compatible API and SDK troubleshooting](docs/en/api-setup.md): Base URL, curl-versus-SDK differences, unsupported parameters, Codex Responses, Claude Code Messages and Gemini scope.
 - [OpenAI-compatible API scope and endpoint limits](https://docs.aifast.link/en/topics/openai-compatible/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_compatibility): compare protocol paths and compatibility boundaries before switching clients.
 - [API model-not-found troubleshooting](https://docs.aifast.link/en/troubleshooting/model-not-found/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_model_not_found): check the model ID, key access, endpoint and final request URL.
 - [Codex custom provider setup](https://docs.aifast.link/en/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_codex): configure `config.toml`, the Responses API and tool-call checks.

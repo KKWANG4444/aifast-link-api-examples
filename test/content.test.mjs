@@ -77,3 +77,17 @@ test('模型不存在排错保留权限、协议边界及同语言 Link 深链',
     assert.ok(content.includes('api-setup.md'));
   }
 });
+
+test('SDK 排错区分协议、版本与路径，双语入口保留成本定位', () => {
+  for (const [guide, language] of [['docs/api-setup.md', ''], ['docs/en/api-setup.md', 'en/']]) {
+    const content = readFileSync(resolve(root, guide), 'utf8');
+    for (const term of ['base_url', 'baseURL', '/v1/v1', 'Responses', 'SDK', 'curl', 'unsupported parameter']) {
+      assert.ok(content.includes(term), `${guide}: ${term}`);
+    }
+    assert.ok(content.includes(`https://docs.aifast.link/${language}topics/openai-compatible/`));
+    assert.ok(content.includes(`https://docs.aifast.link/${language}reference/api-compatibility/`));
+    assert.ok(content.includes('](troubleshooting.md)'));
+  }
+  assert.match(readFileSync(resolve(root, 'README.md'), 'utf8'), /^# AIFast Link：GPT \/ Claude \/ Gemini API 接入与成本算例/);
+  assert.match(readFileSync(resolve(root, 'README.en.md'), 'utf8'), /^# AIFast Link: LLM API cost calculator and integration examples/);
+});
