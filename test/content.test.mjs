@@ -64,3 +64,16 @@ test('中英文入口包含下载及完整 Token 字段说明', () => {
     assert.match(text, /缓存|cache/);
   }
 });
+
+test('模型不存在排错保留权限、协议边界及同语言 Link 深链', () => {
+  for (const [guide, language] of [['docs/troubleshooting.md', ''], ['docs/en/troubleshooting.md', 'en/']]) {
+    const content = readFileSync(resolve(root, guide), 'utf8');
+    assert.match(content, /^# .*model not found/im);
+    for (const term of ['/v1/models', 'Responses', 'Messages', 'Chat Completions', 'Gemini', '401']) {
+      assert.ok(content.includes(term), `${guide}: ${term}`);
+    }
+    assert.ok(content.includes(`https://docs.aifast.link/${language}troubleshooting/model-not-found/`));
+    assert.ok(content.includes(`https://docs.aifast.link/${language}reference/api-compatibility/`));
+    assert.ok(content.includes('api-setup.md'));
+  }
+});
