@@ -1,0 +1,3 @@
+Create hello.txt containing exactly connection ok followed by a newline.
+Read the file and show git status --short --untracked-files=all.
+Do not stage, commit, or modify any other files.

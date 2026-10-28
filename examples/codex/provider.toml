@@ -1,0 +1,5 @@
+[model_providers.aifast_link]
+name = "AIFast Link"
+base_url = "https://www.aifast.link/v1"
+env_key = "AIFAST_LINK_API_KEY"
+wire_api = "responses"

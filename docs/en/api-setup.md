@@ -41,6 +41,7 @@ curl --fail-with-body --silent --show-error \
 
 A successful list request does not verify Chat, Responses, Messages, streaming or tools. Follow the relevant client guide, then test a small task with a limited key. Generation can incur charges; no paid requests have been executed by this repository.
 
+- [Download Codex provider, profile and file-check templates](codex-provider.md)
 - [Codex custom provider](https://docs.aifast.link/en/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_en_codex)
 - [Claude Code setup](https://docs.aifast.link/en/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_en_claude)
 - [Gemini protocol scope](https://docs.aifast.link/en/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_en_gemini)

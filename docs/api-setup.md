@@ -45,6 +45,7 @@ curl --fail-with-body --silent --show-error \
 
 ## 按工具继续
 
+- [下载 Codex Provider、Profile 与文件验收模板](codex-provider.md)
 - [Link Codex 自定义 Provider 配置](https://docs.aifast.link/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_zh_codex)
 - [Link Claude Code 认证与路径配置](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_zh_claude)
 - [Link Gemini 兼容与原生协议边界](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_zh_gemini)

@@ -12,6 +12,7 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
+| Codex 自定义 Provider、401、Responses 与文件回写验收 | [可下载配置与逐项检查](docs/codex-provider.md) | [完整 Codex 教程](https://docs.aifast.link/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_codex_fixture) |
 | 计算 Token 与已计费重试成本 | [成本公式与可运行算例](docs/token-cost.md) | [浏览器计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_token) |
 | 比较按量与月卡，避免闲置或超额 | [月卡成本比较](docs/monthly-plan-vs-payg.md) | [计费与套餐范围](https://docs.aifast.link/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_payment) |
 | OpenAI Compatible API、SDK 兼容问题，或区分 Chat、Responses、Messages | [Base URL、SDK 与协议排查](docs/api-setup.md) | [OpenAI Compatible API 兼容范围](https://docs.aifast.link/topics/openai-compatible/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_compatibility) · [接口能力矩阵](https://docs.aifast.link/reference/api-compatibility/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_protocols) |
@@ -43,6 +44,8 @@ node --test
 Token 算例仅有一种输入单价和一种输出单价，不会自动区分缓存命中、缓存写入、长上下文阶梯或工具费用。存在这些计费项时应按账单分类核算，不能把结果当完整账单。
 
 ## 接入前先区分协议
+
+Codex 模板使用独立的 `aifast_link` Provider、Profile 和 `AIFAST_LINK_API_KEY`，不替换默认提供商。[下载模板与最小文件任务](examples/codex)后按指南核对；模板与离线测试不是模型调用成功的证明。
 
 | 使用场景 | Link 配置入口 | 需要单独验证 |
 | --- | --- | --- |

@@ -37,6 +37,7 @@ The token example uses one input rate and one output rate. It does not automatic
 
 ## Practical guides
 
+- [Downloadable Codex provider, profile and file-task checks](docs/en/codex-provider.md): keep your default provider, isolate the Link key, and diagnose 401, Responses paths and empty `git diff` results. Offline checks are not a live model test.
 - [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
 - [OpenAI compatible API and SDK troubleshooting](docs/en/api-setup.md): Base URL, curl-versus-SDK differences, unsupported parameters, Codex Responses, Claude Code Messages and Gemini scope.
 - [OpenAI-compatible API scope and endpoint limits](https://docs.aifast.link/en/topics/openai-compatible/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_compatibility): compare protocol paths and compatibility boundaries before switching clients.
