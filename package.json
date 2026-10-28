@@ -1,6 +1,6 @@
 {
   "name": "aifast-link-api-examples",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "type": "module",
   "description": "AIFast Link API 接入指南与离线 Token、月卡成本算例",

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFileSync, mkdtempSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, mkdtempSync, writeFileSync, mkdirSync, symlinkSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -26,44 +26,53 @@ test('模板精确使用 Link 命名空间，Provider 不改变默认选择', ()
 for (const guide of guides) {
   const content = read(guide);
   const blocks = [...content.matchAll(/```bash\n([\s\S]*?)```/g)].map(match => match[1]);
-  const checkLine = blocks[1].split('\n').find(line => line.startsWith('node -e '));
-  assert.ok(checkLine?.startsWith("node -e '"));
-  const assertion = checkLine.slice("node -e '".length, -1);
+  assert.match(content, /0\.134\.0/);
+  assert.match(blocks[1], /CODEX_FILE_CHECK_OK/);
 
   test(`${guide}：缺 Key 或已有目录时拒绝启动，成功路径显式选择 Link`, () => {
-    for (const state of ['missing-key', 'existing-dir', 'ready']) withTemp(dir => {
+    for (const state of ['missing-key', 'existing-dir', 'old-version', 'prerelease', 'unknown-version', 'ready', 'next-major']) withTemp(dir => {
       if (state === 'existing-dir') mkdirSync(join(dir, 'codex-link-check'));
       // 仅用 Shell 函数记录参数，不运行真实 Codex，也不读取用户配置。
-      const result = spawnSync('/bin/bash', ['--noprofile', '--norc', '-c', `codex() { printf 'CODEX %s\\n' "$*"; }\n${blocks[0]}`], {
+      const version = { 'old-version': 'codex-cli 0.133.0', prerelease: 'codex-cli 0.134.0-alpha.1', 'unknown-version': 'unknown', 'next-major': 'codex-cli 1.0.0' }[state] ?? 'codex-cli 0.134.0';
+      const result = spawnSync('/bin/bash', ['--noprofile', '--norc', '-c', `codex() { if [ "$1" = "--version" ]; then printf '%s\\n' '${version}'; else printf 'CODEX %s\\n' "$*"; fi; }\n${blocks[0]}`], {
         cwd: dir, encoding: 'utf8', timeout: 5000,
         env: { PATH: process.env.PATH, HOME: dir, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null',
           ...(state === 'missing-key' ? {} : { AIFAST_LINK_API_KEY: 'TEST_ONLY_NOT_A_KEY' }) },
       });
-      assert.equal(result.status === 0, state === 'ready', result.stderr);
-      assert.equal(result.stdout.includes('CODEX --strict-config --profile aifast_link'), state === 'ready');
+      const valid = ['ready', 'next-major'].includes(state);
+      assert.equal(result.status === 0, valid, result.stderr);
+      assert.equal(result.stdout.includes('CODEX --strict-config --profile aifast_link'), valid);
       if (state === 'missing-key') assert.match(result.stderr, /Set AIFAST_LINK_API_KEY/);
     });
   });
 
-  test(`${guide}：人工文件验证缺失、错误内容与换行，普通 diff 会漏掉未跟踪文件`, () => withTemp(dir => {
-    assert.equal(run(dir, 'git', ['init', '-q']).status, 0);
-    assert.notEqual(run(dir, process.execPath, ['-e', assertion]).status, 0);
-    for (const text of ['connection ok', 'wrong\n', 'connection ok\nextra\n']) {
-      writeFileSync(join(dir, 'hello.txt'), text);
-      assert.notEqual(run(dir, process.execPath, ['-e', assertion]).status, 0);
-    }
-    writeFileSync(join(dir, 'hello.txt'), 'connection ok\n');
-    const valid = run(dir, process.execPath, ['-e', assertion]);
-    assert.equal(valid.status, 0, valid.stderr);
-    assert.equal(valid.stdout, 'FILE_CONTENT_OK\n');
-    assert.equal(run(dir, 'git', ['status', '--short', '--untracked-files=all']).stdout, '?? hello.txt\n');
-    assert.equal(run(dir, 'git', ['diff', '--exit-code']).status, 0);
-    assert.equal(run(dir, 'git', ['diff', '--cached', '--exit-code']).status, 0);
-    writeFileSync(join(dir, 'extra.txt'), 'unexpected\n');
-    assert.notEqual(run(dir, 'git', ['status', '--short', '--untracked-files=all']).stdout, '?? hello.txt\n');
-    assert.equal(run(dir, 'git', ['add', 'hello.txt']).status, 0);
-    assert.equal(run(dir, 'git', ['diff', '--cached', '--exit-code']).status, 1);
-    writeFileSync(join(dir, 'hello.txt'), 'changed after staging\n');
-    assert.equal(run(dir, 'git', ['diff', '--exit-code']).status, 1);
-  }));
+  for (const state of ['valid', 'missing', 'no-newline', 'wrong-content', 'extra-untracked', 'extra-staged', 'tracked-change', 'ignored-extra', 'symlink', 'not-git', 'wrong-directory', 'subdirectory']) {
+    test(`${guide}：完整复制执行检查 ${state}`, () => withTemp(tmp => {
+      const dir = join(tmp, state === 'wrong-directory' ? 'wrong-repo' : 'codex-link-check');
+      mkdirSync(dir);
+      if (state !== 'not-git') assert.equal(run(dir, 'git', ['init', '-q']).status, 0);
+      if (state !== 'missing') writeFileSync(join(dir, 'hello.txt'), state === 'no-newline' ? 'connection ok' : state === 'wrong-content' ? 'wrong\n' : 'connection ok\n');
+      if (['extra-untracked', 'extra-staged', 'tracked-change', 'ignored-extra'].includes(state)) writeFileSync(join(dir, 'extra.txt'), 'unexpected\n');
+      if (['extra-staged', 'tracked-change'].includes(state)) assert.equal(run(dir, 'git', ['add', 'extra.txt']).status, 0);
+      if (state === 'tracked-change') {
+        assert.equal(run(dir, 'git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '-qm', 'test']).status, 0);
+        writeFileSync(join(dir, 'extra.txt'), 'modified\n');
+      }
+      if (state === 'ignored-extra') writeFileSync(join(dir, '.git/info/exclude'), 'extra.txt\n');
+      if (state === 'symlink') {
+        rmSync(join(dir, 'hello.txt'));
+        writeFileSync(join(tmp, 'target.txt'), 'connection ok\n');
+        symlinkSync(join(tmp, 'target.txt'), join(dir, 'hello.txt'));
+      }
+      let cwd = dir;
+      if (state === 'subdirectory') {
+        cwd = join(dir, 'codex-link-check');
+        mkdirSync(cwd);
+        writeFileSync(join(cwd, 'hello.txt'), 'connection ok\n');
+      }
+      const result = run(cwd, '/bin/bash', ['--noprofile', '--norc', '-c', blocks[1]]);
+      assert.equal(result.status === 0, state === 'valid', `${state}: ${result.stderr}`);
+      assert.equal(result.stdout.includes('CODEX_FILE_CHECK_OK'), state === 'valid');
+    }));
+  }
 }

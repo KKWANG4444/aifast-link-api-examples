@@ -4,6 +4,8 @@
 
 ## 先下载，不修改默认提供商
 
+需要 Node.js 22+ 和 Codex CLI 0.134.0+ 正式版本。本模板使用独立 Profile 文件；旧版本配置结构不同，先按完整教程的官方迁移参考处理，不要直接套用。启动检查会拒绝旧版或无法识别的版本，不会自动升级或覆盖配置。
+
 这组模板只对应 AIFast Link。没有安装脚本，不读取本机凭据，不自动联网，也不证明某个模型已经通过 Codex 实测。配置方法核对于 2026-10-28；模型权限与支持协议仍应实时确认。
 
 - [Provider 定义](../examples/codex/provider.toml)：核对后合并进用户级 `~/.codex/config.toml`，保留其他内容。
@@ -18,7 +20,8 @@
 (
   set -e
   : "${AIFAST_LINK_API_KEY:?Set AIFAST_LINK_API_KEY locally before running}"
-  codex --version
+  codex_version="$(codex --version)"
+  node -e 'const m = /^codex-cli (\d+)\.(\d+)\.(\d+)(?:\s|$)/.exec(process.argv[1]); if (!m || !(Number(m[1]) > 0 || Number(m[2]) >= 134)) { console.error("Codex CLI 0.134.0+ stable required; review the migration guide first."); process.exit(1); }' "$codex_version"
   mkdir codex-link-check
   cd codex-link-check
   git init
@@ -33,13 +36,30 @@
 在 Codex 中执行 `task.txt` 的任务；退出会话后，进入刚创建的 `codex-link-check` 目录，再执行以下只读检查：
 
 ```bash
-git status --short --untracked-files=all
-git diff --exit-code
-git diff --cached --exit-code
-node -e 'const fs = require("node:fs"); const text = fs.readFileSync("hello.txt", "utf8"); if (text !== "connection ok\n") process.exit(1); console.log("FILE_CONTENT_OK");'
+(
+  set -e
+  node <<'NODE'
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const { execFileSync } = require("node:child_process");
+const git = (...args) => execFileSync("git", args, { encoding: "utf8" });
+const cwd = fs.realpathSync(".");
+assert.equal(path.basename(cwd), "codex-link-check");
+assert.equal(fs.realpathSync(git("rev-parse", "--show-toplevel").trim()), cwd);
+assert.deepEqual(fs.readdirSync(".").sort(), [".git", "hello.txt"]);
+assert.ok(fs.lstatSync(".git").isDirectory());
+assert.ok(fs.lstatSync("hello.txt").isFile());
+assert.equal(git("status", "--porcelain=v1", "--untracked-files=all", "--ignored", "-z"), "?? hello.txt\0");
+git("diff", "--exit-code");
+git("diff", "--cached", "--exit-code");
+assert.equal(fs.readFileSync("hello.txt", "utf8"), "connection ok\n");
+console.log("CODEX_FILE_CHECK_OK");
+NODE
+)
 ```
 
-预期是状态只显示 `?? hello.txt`、两个 diff 命令退出码为 0，文件检查输出 `FILE_CONTENT_OK`。这些是预期结果，不是一次真实 Link 模型调用记录。新建文件未跟踪时 `git diff` 为空是正常的；缺文件、内容不符或额外改动都不能算通过。
+整段仅在 `codex-link-check` 仓库根目录运行：只允许 `.git` 与未跟踪的普通文件 `hello.txt`，内容须精确匹配且带换行。任一检查失败都会以非零状态退出，全部通过才输出 `CODEX_FILE_CHECK_OK`。这些是预期结果，不是一次真实 Link 模型调用记录；普通 `git diff` 为空不能证明没有额外未跟踪文件。
 
 本仓库的 `node --test` 通过人工构造的临时文件验证上述 Git 行为和文件断言，**不会启动 Codex 或调用模型**。文件正确也不能单独证明 Provider、模型身份、流式事件或计费正确。
 

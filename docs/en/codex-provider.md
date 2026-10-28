@@ -4,6 +4,8 @@
 
 ## Download without replacing your default provider
 
+Requires Node.js 22+ and a stable Codex CLI release 0.134.0 or later. This template uses a separate profile file. Older versions use a different configuration structure; follow the official migration reference in the full guide before continuing. The startup check rejects old or unrecognized versions without upgrading software or overwriting configuration.
+
 These templates are for AIFast Link only. They contain no installer, do not read credentials or make requests, and are not evidence of a successful model run. Configuration guidance checked on 2026-10-28; verify current model access and protocol support separately.
 
 - [Provider definition](../../examples/codex/provider.toml): review and merge into user-level `~/.codex/config.toml`, preserving existing settings.
@@ -18,7 +20,8 @@ Set `AIFAST_LINK_API_KEY` securely in your terminal using a separate limited key
 (
   set -e
   : "${AIFAST_LINK_API_KEY:?Set AIFAST_LINK_API_KEY locally before running}"
-  codex --version
+  codex_version="$(codex --version)"
+  node -e 'const m = /^codex-cli (\d+)\.(\d+)\.(\d+)(?:\s|$)/.exec(process.argv[1]); if (!m || !(Number(m[1]) > 0 || Number(m[2]) >= 134)) { console.error("Codex CLI 0.134.0+ stable required; review the migration guide first."); process.exit(1); }' "$codex_version"
   mkdir codex-link-check
   cd codex-link-check
   git init
@@ -33,13 +36,30 @@ The subshell stops before starting a task if the key is missing, the directory a
 Give Codex the task in `task.txt`. After exiting, enter the newly created `codex-link-check` directory and run these read-only checks:
 
 ```bash
-git status --short --untracked-files=all
-git diff --exit-code
-git diff --cached --exit-code
-node -e 'const fs = require("node:fs"); const text = fs.readFileSync("hello.txt", "utf8"); if (text !== "connection ok\n") process.exit(1); console.log("FILE_CONTENT_OK");'
+(
+  set -e
+  node <<'NODE'
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const { execFileSync } = require("node:child_process");
+const git = (...args) => execFileSync("git", args, { encoding: "utf8" });
+const cwd = fs.realpathSync(".");
+assert.equal(path.basename(cwd), "codex-link-check");
+assert.equal(fs.realpathSync(git("rev-parse", "--show-toplevel").trim()), cwd);
+assert.deepEqual(fs.readdirSync(".").sort(), [".git", "hello.txt"]);
+assert.ok(fs.lstatSync(".git").isDirectory());
+assert.ok(fs.lstatSync("hello.txt").isFile());
+assert.equal(git("status", "--porcelain=v1", "--untracked-files=all", "--ignored", "-z"), "?? hello.txt\0");
+git("diff", "--exit-code");
+git("diff", "--cached", "--exit-code");
+assert.equal(fs.readFileSync("hello.txt", "utf8"), "connection ok\n");
+console.log("CODEX_FILE_CHECK_OK");
+NODE
+)
 ```
 
-Expected: only `?? hello.txt` in status, both diff commands exit with code 0, and the file check prints `FILE_CONTENT_OK`. These are expected results, not a recorded Link run. An untracked new file does not appear in ordinary `git diff`; missing files, wrong content or extra changes fail acceptance.
+Run the complete block only at the root of the `codex-link-check` repository. It permits only `.git` and an untracked regular `hello.txt` file with the exact content and trailing newline. Any failed check exits nonzero; only a complete pass prints `CODEX_FILE_CHECK_OK`. These are expected results, not a recorded Link run. Empty ordinary `git diff` output does not rule out extra untracked files.
 
 The repository's `node --test` checks this Git behavior and file assertion using synthetic temporary files. It **does not start Codex or call a model**. A correct file alone does not prove the provider, model identity, streaming events or billing.
 
