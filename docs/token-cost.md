@@ -44,7 +44,9 @@ node --test
 
 Chat Completions 通常使用 `usage.prompt_tokens` 和 `usage.completion_tokens`；Responses 使用 `usage.input_tokens` 和 `usage.output_tokens`。分别映射到本工具的 `inputTokens` 和 `outputTokens`，不要把 `total_tokens` 填入两栏。缺失用量不是零，应查账单或用量日志。总输出可能包含不可见的推理或格式 Token，已计入总数的明细不要重复相加。
 
-聚合多次请求的 Token 时，把聚合值当作一次计算，`tasks` 设为 1，并避免重复加入已包含的重试；各次价格不同则分组计算后合计。单次样本外推多次任务时，才使用对应的计划任务数。
+多次请求的合计 Token 请使用在线计算器的“汇总用量”模式，不再乘任务数或加入已包含的重试。只合并同模型、同有效单价的计费类别；各次价格不同则分组计算后合计。汇总模式不推断真实请求次数或单次任务成本。
+
+离线 CLI 仍使用“单次样本 × 计划任务数”的输入协议，`inputTokens`、`outputTokens` 是每次任务用量。不要把汇总值当作单次样本，再把 `perTask` 或 `estimatedBillableRequests` 当成真实单次成本或请求次数。
 
 缓存读取、写入、不同缓存有效期及普通输入需要按不重叠的计费类别分别核算。例如已确认总输入 3000 包含缓存读取 2000、没有写入，普通输入就是 1000；不要算完 3000 普通输入后再加 2000 缓存费用。此关系以具体协议为准，不能直接套给 Anthropic 或其他网关。
 
