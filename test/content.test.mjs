@@ -5,6 +5,11 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
+const protocolReferences = new Set([
+  'https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create',
+  'https://developers.openai.com/api/docs/guides/token-counting',
+  'https://developers.openai.com/api/docs/guides/prompt-caching',
+]);
 const files = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
   if (['.git', 'node_modules'].includes(entry.name)) return [];
   const path = resolve(dir, entry.name);
@@ -25,7 +30,7 @@ test('公开文档只链接 Link，归因参数独立且本地链接存在', () 
           assert.equal(url.searchParams.get('utm_medium'), 'repository');
           assert.equal(url.searchParams.get('utm_campaign'), 'link_api_examples');
           assert.ok(url.searchParams.get('utm_content'));
-        } else {
+        } else if (!protocolReferences.has(url.href)) {
           assert.equal(url.hostname, 'github.com');
           assert.match(url.pathname, /^\/KKWANG4444\/aifast-link-api-examples(?:\/|$)/);
         }
@@ -62,6 +67,19 @@ test('中英文入口包含下载及完整 Token 字段说明', () => {
     for (const field of fields) assert.ok(text.includes(`\`${field}\``), `${guide}: ${field}`);
     assert.match(text, /17\.05/);
     assert.match(text, /缓存|cache/);
+  }
+});
+
+test('成本说明提供同语言用量深链并区分聚合与缓存计费', () => {
+  for (const [file, prefix] of [['docs/token-cost.md', ''], ['docs/en/token-cost.md', 'en/']]) {
+    const content = readFileSync(resolve(root, file), 'utf8');
+    for (const field of ['usage.prompt_tokens', 'usage.completion_tokens', 'usage.input_tokens', 'usage.output_tokens', 'total_tokens']) assert.ok(content.includes(field), field);
+    const link = [...content.matchAll(/\]\((https:\/\/docs\.aifast\.link[^)]+#usage-to-cost)\)/g)].map(match => new URL(match[1]));
+    assert.equal(link.length, 1);
+    assert.equal(link[0].pathname, `/${prefix}tools/api-cost-calculator/`);
+    for (const reference of protocolReferences) assert.ok(content.includes(reference));
+    assert.match(content, prefix ? /not completed Link calls/ : /不是 Link 已完成的调用记录/);
+    assert.equal(content.split('\n').filter(line => line === (prefix ? '## Count only billed retries' : '## 失败重试不是全部都算钱')).length, 1);
   }
 });
 
