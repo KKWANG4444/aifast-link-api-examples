@@ -44,7 +44,9 @@ Multiply a per-thousand-token quote by 1000 before using it as a per-million rat
 
 Chat Completions uses `usage.prompt_tokens` and `usage.completion_tokens`; Responses uses `usage.input_tokens` and `usage.output_tokens`. Map them to `inputTokens` and `outputTokens`. Do not enter `total_tokens` in both fields. Missing usage is unknown, not zero: check billing or usage logs. Output totals may include hidden reasoning or formatting tokens; do not add included details again.
 
-When entering aggregated tokens, set `tasks` to 1 and avoid adding retries already included in the total. Calculate groups with different rates separately. Use a larger task count only when projecting from per-task usage.
+For totals across requests, select Aggregated usage in the online calculator. Do not multiply by task count or add retries already included in those totals. Combine only billing categories for the same model and effective rates; calculate different rates separately, then sum them. Aggregated mode does not infer actual request counts or per-task costs.
+
+The offline CLI still uses a per-task sample multiplied by planned task count: `inputTokens` and `outputTokens` are per-task values. Do not enter aggregates as a single-task sample and interpret `perTask` or `estimatedBillableRequests` as the actual cost per task or request count.
 
 Reconcile ordinary input, cache reads, cache writes and retention periods as non-overlapping billing categories. If 3000 input tokens are confirmed to include 2000 cache reads and no writes, ordinary input is 1000. Do not bill all 3000 as ordinary input and then add the 2000 cached tokens. Check the protocol before applying this relationship to Anthropic or another gateway.
 
