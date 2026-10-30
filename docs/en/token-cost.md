@@ -40,6 +40,18 @@ Edit [token-cost.json](../../examples/token-cost.json). Keep JSON numbers numeri
 
 Multiply a per-thousand-token quote by 1000 before using it as a per-million rate. Use the same currency and model group for both prices; do not apply a multiplier twice when it is already included in the quote.
 
+## Map API usage to calculator inputs
+
+Chat Completions uses `usage.prompt_tokens` and `usage.completion_tokens`; Responses uses `usage.input_tokens` and `usage.output_tokens`. Map them to `inputTokens` and `outputTokens`. Do not enter `total_tokens` in both fields. Missing usage is unknown, not zero: check billing or usage logs. Output totals may include hidden reasoning or formatting tokens; do not add included details again.
+
+When entering aggregated tokens, set `tasks` to 1 and avoid adding retries already included in the total. Calculate groups with different rates separately. Use a larger task count only when projecting from per-task usage.
+
+Reconcile ordinary input, cache reads, cache writes and retention periods as non-overlapping billing categories. If 3000 input tokens are confirmed to include 2000 cache reads and no writes, ordinary input is 1000. Do not bill all 3000 as ordinary input and then add the 2000 cached tokens. Check the protocol before applying this relationship to Anthropic or another gateway.
+
+[Online field and unit guide](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=token_en_usage#usage-to-cost) · [OpenAI usage fields](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create) · [Output token counts](https://developers.openai.com/api/docs/guides/token-counting) · [Cache usage](https://developers.openai.com/api/docs/guides/prompt-caching)
+
+These are protocol and calculation notes, not completed Link calls or price guarantees.
+
 ## Count only billed retries
 
 For 100 planned tasks and 8 retries of which only 3 were billed, enter **3%**, not 8%. Zero without logs is provisional, not evidence of zero cost. Each retry is assumed to use the same input/output tokens and rates as one planned task; calculate changed histories or model switches separately.
