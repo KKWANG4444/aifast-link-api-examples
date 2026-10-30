@@ -79,6 +79,11 @@ test('成本说明提供同语言用量深链并区分聚合与缓存计费', ()
     assert.equal(link[0].pathname, `/${prefix}tools/api-cost-calculator/`);
     for (const reference of protocolReferences) assert.ok(content.includes(reference));
     assert.match(content, prefix ? /not completed Link calls/ : /不是 Link 已完成的调用记录/);
+    assert.match(content, prefix ? /select Aggregated usage in the online calculator/ : /在线计算器的“汇总用量”模式/);
+    assert.match(content, prefix ? /does not infer actual request counts or per-task costs/ : /不推断真实请求次数或单次任务成本/);
+    assert.match(content, prefix ? /offline CLI still uses a per-task sample/ : /离线 CLI 仍使用“单次样本/);
+    assert.ok(content.includes('`estimatedBillableRequests`'));
+    assert.doesNotMatch(content, /set `tasks` to 1|`tasks` 设为 1/);
     assert.equal(content.split('\n').filter(line => line === (prefix ? '## Count only billed retries' : '## 失败重试不是全部都算钱')).length, 1);
   }
 });
