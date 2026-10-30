@@ -40,6 +40,18 @@ node --test
 
 若页面按每千 Token 标价，先乘 1000 换成每百万 Token 单价。输入输出应采用同一币种、同一模型分组的有效价格；不要重复乘已包含在报价里的倍率。
 
+## 从 API usage 到输入字段
+
+Chat Completions 通常使用 `usage.prompt_tokens` 和 `usage.completion_tokens`；Responses 使用 `usage.input_tokens` 和 `usage.output_tokens`。分别映射到本工具的 `inputTokens` 和 `outputTokens`，不要把 `total_tokens` 填入两栏。缺失用量不是零，应查账单或用量日志。总输出可能包含不可见的推理或格式 Token，已计入总数的明细不要重复相加。
+
+聚合多次请求的 Token 时，把聚合值当作一次计算，`tasks` 设为 1，并避免重复加入已包含的重试；各次价格不同则分组计算后合计。单次样本外推多次任务时，才使用对应的计划任务数。
+
+缓存读取、写入、不同缓存有效期及普通输入需要按不重叠的计费类别分别核算。例如已确认总输入 3000 包含缓存读取 2000、没有写入，普通输入就是 1000；不要算完 3000 普通输入后再加 2000 缓存费用。此关系以具体协议为准，不能直接套给 Anthropic 或其他网关。
+
+[在线查看字段与单位](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=token_zh_usage#usage-to-cost) · [OpenAI 用量字段](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create) · [输出 Token 说明](https://developers.openai.com/api/docs/guides/token-counting) · [缓存用量说明](https://developers.openai.com/api/docs/guides/prompt-caching)
+
+这些是协议与算式说明，不是 Link 已完成的调用记录或价格保证。
+
 ## 失败重试不是全部都算钱
 
 100 次计划任务，额外重试 8 次，仅 3 次在账单计费，应填 **3%**，不是 8%。没有日志时填 0 只是临时假设，不证明没有费用。本公式假设每次重试的输入、输出 Token 和单价与原任务相同；重试带上更多历史或切换模型时，应分开核算。
