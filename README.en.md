@@ -37,6 +37,7 @@ The token example uses one input rate and one output rate. It does not automatic
 
 ## Practical guides
 
+- [Gemini API setup with offline model-ID checks and a request template](docs/en/gemini-api.md): choose the protocol, keep provider keys separate and reconcile tiered billing before scaling usage.
 - [Downloadable Codex provider, profile and file-task checks](docs/en/codex-provider.md): keep your default provider, isolate the Link key, and diagnose 401, Responses paths and empty `git diff` results. Offline checks are not a live model test.
 - [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
 - [OpenAI compatible API and SDK troubleshooting](docs/en/api-setup.md): Base URL, curl-versus-SDK differences, unsupported parameters, Codex Responses, Claude Code Messages and Gemini scope.
