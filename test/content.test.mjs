@@ -10,6 +10,10 @@ const protocolReferences = new Set([
   'https://developers.openai.com/api/docs/guides/token-counting',
   'https://developers.openai.com/api/docs/guides/prompt-caching',
 ]);
+const geminiReferences = new Set([
+  'https://ai.google.dev/gemini-api/docs/openai',
+  'https://ai.google.dev/api/generate-content',
+]);
 const files = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
   if (['.git', 'node_modules'].includes(entry.name)) return [];
   const path = resolve(dir, entry.name);
@@ -30,7 +34,7 @@ test('公开文档只链接 Link，归因参数独立且本地链接存在', () 
           assert.equal(url.searchParams.get('utm_medium'), 'repository');
           assert.equal(url.searchParams.get('utm_campaign'), 'link_api_examples');
           assert.ok(url.searchParams.get('utm_content'));
-        } else if (!protocolReferences.has(url.href)) {
+        } else if (!protocolReferences.has(url.href) && !geminiReferences.has(url.href)) {
           assert.equal(url.hostname, 'github.com');
           assert.match(url.pathname, /^\/KKWANG4444\/aifast-link-api-examples(?:\/|$)/);
         }

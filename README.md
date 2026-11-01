@@ -12,6 +12,7 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
+| Gemini API 中转、模型 ID、协议与费用核对 | [离线 ID 检查与请求模板](docs/gemini-api.md) | [Gemini 接入教程](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_gemini_fixture) |
 | Codex 自定义 Provider、401、Responses 与文件回写验收 | [可下载配置与逐项检查](docs/codex-provider.md) | [完整 Codex 教程](https://docs.aifast.link/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_codex_fixture) |
 | 计算 Token 与已计费重试成本 | [成本公式与可运行算例](docs/token-cost.md) | [浏览器计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_token) |
 | 比较按量与月卡，避免闲置或超额 | [月卡成本比较](docs/monthly-plan-vs-payg.md) | [计费与套餐范围](https://docs.aifast.link/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_payment) |
@@ -56,7 +57,7 @@ Codex 模板使用独立的 `aifast_link` Provider、Profile 和 `AIFAST_LINK_AP
 
 [Codex 接入教程](https://docs.aifast.link/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_codex) · [Claude Code 教程](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_claude) · [Gemini 协议说明](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_gemini)
 
-目录上架不等于账号有权限，也不证明流式和工具调用已经通过。接口示例不是成功率或底层模型身份认证；本仓库 CI 只验证离线成本逻辑、样例和内容边界。
+目录上架不等于账号有权限，也不证明流式和工具调用已经通过。接口示例不是成功率或底层模型身份认证；本仓库 CI 只验证离线成本逻辑、模型 ID 检查、样例和内容边界。
 
 ## 购买前核对
 
