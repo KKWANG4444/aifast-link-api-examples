@@ -37,6 +37,7 @@ The token example uses one input rate and one output rate. It does not automatic
 
 ## Practical guides
 
+- [Claude Code Base URL, credential-free templates and 401 checks](docs/en/claude-code.md): resolve old settings, verify Messages paths, and connect setup decisions with the Link billing guide.
 - [Gemini API setup with offline model-ID checks and a request template](docs/en/gemini-api.md): choose the protocol, keep provider keys separate and reconcile tiered billing before scaling usage.
 - [Downloadable Codex provider, profile and file-task checks](docs/en/codex-provider.md): keep your default provider, isolate the Link key, and diagnose 401, Responses paths and empty `git diff` results. Offline checks are not a live model test.
 - [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
