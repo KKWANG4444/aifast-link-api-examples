@@ -1,0 +1,6 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://www.aifast.link",
+    "ANTHROPIC_MODEL": "YOUR_CLAUDE_MODEL_ID"
+  }
+}
