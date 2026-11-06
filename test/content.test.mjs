@@ -10,6 +10,10 @@ const protocolReferences = new Set([
   'https://developers.openai.com/api/docs/guides/token-counting',
   'https://developers.openai.com/api/docs/guides/prompt-caching',
 ]);
+const sdkReferences = new Set([
+  'https://github.com/openai/openai-node',
+  'https://github.com/openai/openai-python',
+]);
 const geminiReferences = new Set([
   'https://ai.google.dev/gemini-api/docs/openai',
   'https://ai.google.dev/api/generate-content',
@@ -34,7 +38,7 @@ test('公开文档只链接 Link，归因参数独立且本地链接存在', () 
           assert.equal(url.searchParams.get('utm_medium'), 'repository');
           assert.equal(url.searchParams.get('utm_campaign'), 'link_api_examples');
           assert.ok(url.searchParams.get('utm_content'));
-        } else if (!protocolReferences.has(url.href) && !geminiReferences.has(url.href)) {
+        } else if (!protocolReferences.has(url.href) && !geminiReferences.has(url.href) && !sdkReferences.has(url.href)) {
           assert.equal(url.hostname, 'github.com');
           assert.match(url.pathname, /^\/KKWANG4444\/aifast-link-api-examples(?:\/|$)/);
         }
@@ -114,6 +118,10 @@ test('SDK 排错区分协议、版本与路径，双语入口保留成本定位'
     assert.ok(content.includes(`https://docs.aifast.link/${language}topics/openai-compatible/`));
     assert.ok(content.includes(`https://docs.aifast.link/${language}reference/api-compatibility/`));
     assert.ok(content.includes('](troubleshooting.md)'));
+    assert.ok(content.includes('examples/sdk/capture-request.mjs'));
+    assert.ok(content.includes('npm ci --prefix examples/sdk --ignore-scripts'));
+    assert.ok(content.includes('7.53.0'));
+    assert.match(content, language ? /does not prove live Link compatibility/ : /不能证明 Link 线上兼容/);
   }
   assert.match(readFileSync(resolve(root, 'README.md'), 'utf8'), /^# AIFast Link：GPT \/ Claude \/ Gemini API 接入与成本算例/);
   assert.match(readFileSync(resolve(root, 'README.en.md'), 'utf8'), /^# AIFast Link: LLM API cost calculator and integration examples/);

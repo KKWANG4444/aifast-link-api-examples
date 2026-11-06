@@ -10,6 +10,8 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 
 ## 先解决一个具体问题
 
+**curl 成功、SDK 却失败？** [用官方 Node SDK 离线查看请求](docs/api-setup.md#sdk-request-fixture)，对照 Chat 的 `messages` 与 Responses 的 `input`。不需要 Key，不调用模型；安装 SDK 时需要联网。
+
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
 | Claude Code 的 ANTHROPIC_BASE_URL、401 与旧配置冲突 | [无密钥模板与检查步骤](docs/claude-code.md) | [Claude Code 配置与认证排查](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_claude_fixture) |

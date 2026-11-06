@@ -28,6 +28,32 @@ Python clients commonly use `base_url`; JavaScript clients commonly use `baseURL
 
 [Link compatibility scope](https://docs.aifast.link/en/topics/openai-compatible/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_en_compatibility) · [Protocol compatibility matrix](https://docs.aifast.link/en/reference/api-compatibility/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_en_matrix) · [Model-not-found and authentication checks](troubleshooting.md)
 
+<a id="sdk-request-fixture"></a>
+
+## Inspect requests built by the official SDK offline
+
+This fixture pins the official Node SDK to `openai@7.53.0`. A local replacement handles the SDK's `fetch`, recording only the URL, method and fixed example body. It does not read real keys or send network requests. **It does not prove live Link compatibility**; it shows why Chat and Responses remain different requests even with the same Base URL.
+
+Run from the repository root. Dependency installation connects to npm; the installed example and its tests run offline. The cost calculator still needs no dependency installation.
+
+```bash
+npm ci --prefix examples/sdk --ignore-scripts
+node examples/sdk/capture-request.mjs chat
+node examples/sdk/capture-request.mjs responses
+npm test --prefix examples/sdk
+```
+
+| Mode | Expected final path | Fixed example fields |
+| --- | --- | --- |
+| chat | `/v1/chat/completions` | `model`, `messages`, `stream: false` |
+| responses | `/v1/responses` | `model`, `input`, `stream: false` |
+
+Source: [offline request capture](../../examples/sdk/capture-request.mjs). `YOUR_MODEL_ID` is a placeholder; `fixtureOnly: true` means no model was tested. Do not present this output as a live success report. A regression case also shows how a full endpoint in `baseURL` causes `/chat/completions` to be appended twice.
+
+Official option mapping: Python uses `base_url`, `max_retries=0` and `timeout=30.0` (seconds); Node uses `baseURL`, `maxRetries: 0` and `timeout: 30000` (milliseconds). SDK retries are separate from application-level retries; disable the outer retry loop while diagnosing too.
+
+References: [OpenAI Node SDK](https://github.com/openai/openai-node) and [OpenAI Python SDK](https://github.com/openai/openai-python). Source and local fixtures establish request construction, not provider availability, model identity or billing behavior.
+
 ## Read the account model list first
 
 Securely set `AIFAST_LINK_API_KEY` in your terminal before running this network request. It reads model access without generating content. Avoid shell tracing and never post authorization headers.

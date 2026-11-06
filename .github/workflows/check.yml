@@ -20,3 +20,5 @@ jobs:
           node-version: ${{ matrix.node }}
           package-manager-cache: false
       - run: node --test
+      - run: npm ci --prefix examples/sdk --ignore-scripts
+      - run: npm test --prefix examples/sdk

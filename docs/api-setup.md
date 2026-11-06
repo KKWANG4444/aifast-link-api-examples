@@ -30,6 +30,32 @@ Python 客户端常用 `base_url`，JavaScript 客户端常用 `baseURL`；字�
 
 [Link OpenAI Compatible API 范围](https://docs.aifast.link/topics/openai-compatible/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_zh_compatibility) · [逐协议能力矩阵](https://docs.aifast.link/reference/api-compatibility/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_zh_matrix) · [model not found 与认证排查](troubleshooting.md)
 
+<a id="sdk-request-fixture"></a>
+
+## 离线查看官方 SDK 实际构造的请求
+
+本例固定使用官方 Node SDK `openai@7.53.0`。SDK 的 `fetch` 被本地替身接管，只输出 URL、方法与固定演示请求体，不读取真实 Key、不发送网络请求。**它不能证明 Link 线上兼容**，只用于解释为什么同一个 Base URL 下 Chat 与 Responses 仍是不同请求。
+
+在仓库根目录执行。安装依赖会连接 npm；安装后的示例和测试均离线运行。成本计算器仍然不需要安装依赖。
+
+```bash
+npm ci --prefix examples/sdk --ignore-scripts
+node examples/sdk/capture-request.mjs chat
+node examples/sdk/capture-request.mjs responses
+npm test --prefix examples/sdk
+```
+
+| 模式 | 预期最终路径 | 固定演示字段 |
+| --- | --- | --- |
+| chat | `/v1/chat/completions` | `model`、`messages`、`stream: false` |
+| responses | `/v1/responses` | `model`、`input`、`stream: false` |
+
+源码：[离线请求捕获](../examples/sdk/capture-request.mjs)。输出中的 `YOUR_MODEL_ID` 是占位符，`fixtureOnly: true` 表示没有模型实测，不能直接作为线上成功报告。错误 Base URL 的回归用例还展示：把完整端点填进 `baseURL` 会再次追加 `/chat/completions`。
+
+官方参数对照：Python 为 `base_url`、`max_retries=0`、`timeout=30.0`（秒）；Node 为 `baseURL`、`maxRetries: 0`、`timeout: 30000`（毫秒）。官方 SDK 的重试行为不等于业务自己的重试逻辑；排错时也应关闭调用外层的自动重试。
+
+依据：[OpenAI Node SDK](https://github.com/openai/openai-node)、[OpenAI Python SDK](https://github.com/openai/openai-python)。源码和本地模拟只证明客户端请求构造，不证明服务商可用性、模型身份或计费结果。
+
 ## 先做不生成内容的模型列表检查
 
 先在自己的终端安全设置 `AIFAST_LINK_API_KEY`。下面的命令会联网读取账号可见模型，不生成内容；不要开启 shell 跟踪或把带认证的日志贴进 Issue。
