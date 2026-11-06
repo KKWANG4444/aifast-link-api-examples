@@ -2,7 +2,7 @@
 
 [English](README.en.md) · [在线成本计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_calculator) · [Link 开始使用](https://docs.aifast.link/start/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_start)
 
-[下载最新离线算例](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token 成本公式与输入字段](docs/token-cost.md)
+[下载成本算例与 SDK 示例](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token 成本公式与输入字段](docs/token-cost.md)
 
 这是 **AIFast Link 的独立公开示例仓库**，仅对应 `www.aifast.link` 和 `docs.aifast.link`，不是模型厂商官方项目。
 
@@ -11,6 +11,8 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 ## 先解决一个具体问题
 
 **curl 成功、SDK 却失败？** [用官方 Node SDK 离线查看请求](docs/api-setup.md#sdk-request-fixture)，对照 Chat 的 `messages` 与 Responses 的 `input`。不需要 Key，不调用模型；安装 SDK 时需要联网。
+
+**API 月卡到底省不省？** [一条命令比较 5／20／30 天和超额情形](docs/monthly-plan-vs-payg.md#compare-scenarios)，同时列出无钱包回退时无法完成的工作量。使用演示数据，不是套餐优惠承诺。
 
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
@@ -34,6 +36,7 @@ cd aifast-link-api-examples
 node scripts/cost.mjs token examples/token-cost.json
 node scripts/cost.mjs plan examples/monthly-plan.json
 node scripts/cost.mjs plan examples/monthly-plan-overage.json
+node scripts/plan-scenarios.mjs
 node --test
 ```
 
@@ -42,6 +45,7 @@ node --test
 - Token：2.5 / 10 美元每百万输入 / 输出 Token，每次 3000 / 800 Token，1000 次任务，10% 已计费额外重试，结果 **17.05 美元**。
 - 月卡：月费 200 元、日额度 20 Credit、20 个使用日、每日使用 10 Credit、按量每天 12 元，结果 **按量 240 元、月卡 200 元**。
 - 超额：改为每日 25 Credit，且已确认钱包回退和 0.7 元/Credit 的超额费用，结果 **月卡加超额 270 元**，高于按量 240 元。
+- 多场景：同一命令输出 0／5／20／30 天的 12 组输入与结果。无钱包回退且存在超额时，`planTotal` 为 `null`，不把月费当作完整工作量成本。
 
 修改示例 JSON 为你自己的账单参数再运行。输入费用和输出费用使用同一币种；程序不换算汇率。月卡比较使用人民币实付金额，Credit 是站内额度，不是美元或固定 Token 数量。
 

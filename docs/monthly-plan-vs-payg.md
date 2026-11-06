@@ -28,6 +28,30 @@ node scripts/cost.mjs plan examples/monthly-plan-overage.json
 
 若不允许钱包回退，结果是 `covered: false`、`planTotal: null`，不是“200 元完成全部任务”。缺少超额单价时程序报错，不把空值当免费。
 
+<a id="compare-scenarios"></a>
+## 一条命令比较使用天数与三种额度情形
+
+在仓库目录运行，无需安装依赖、注册或 API Key，不联网：
+
+```bash
+node scripts/plan-scenarios.mjs
+```
+
+命令读取上面两份 JSON 演示文件，输出 0／5／20／30 天、三种情形共 12 行结果。以下为随仓库附带参数的结果，金额单位为人民币：
+
+| 使用天数 | 按量 | 额度内月卡（10 Credit/天） | 允许钱包回退（25 Credit/天） | 禁止钱包回退（25 Credit/天） |
+| --- | --- | --- | --- | --- |
+| 0 | 0 | 200 | 200 | 200，无工作量 |
+| 5 | 60 | 200 | 217.50 | 不覆盖全部工作量 |
+| 20 | 240 | 200 | 270 | 不覆盖全部工作量 |
+| 30 | 360 | 200 | 305 | 不覆盖全部工作量 |
+
+**每一行的每种情形，都假设相应工作量按量每天花费 12 元。** 10 Credit 和 25 Credit 是两个独立演示，不表示增加用量后按量价格仍不变，更不是 Credit 与人民币的换算关系。实际比较时须分别核对同一工作量的 `dailyPayg` 与 `dailyUsage`。
+
+输出的 `illustrative: true` 表示演示，不是实时价格或账单。每行保留 `input`、`result` 和来源文件；`overage-without-fallback` 在有超额时返回 `covered: false`、`planTotal: null`，不是零元。即使用量为零，已经购买的完整月费仍计入成本。
+
+替换两份 JSON 中的报价和用量后可重新运行；命令只覆盖 `usageDays`，第三种情形额外将 `walletFallback` 设为 `false`，不会改写文件。每日额度不结转、每日工作量相同、不计退款的假设仍适用。
+
 ## 输入字段
 
 | JSON 字段 | 含义 |

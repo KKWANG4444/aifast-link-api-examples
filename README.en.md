@@ -2,7 +2,7 @@
 
 [简体中文](README.md) · [Online cost calculator](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_calculator) · [Get started](https://docs.aifast.link/en/start/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_start)
 
-[Download offline examples](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token cost formula and input fields](docs/en/token-cost.md)
+[Download cost and SDK examples](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token cost formula and input fields](docs/en/token-cost.md)
 
 A dedicated public example repository for **AIFast Link**, covering only `www.aifast.link` and `docs.aifast.link`. This is not an official project of OpenAI, Anthropic or Google.
 
@@ -20,6 +20,7 @@ cd aifast-link-api-examples
 node scripts/cost.mjs token examples/token-cost.json
 node scripts/cost.mjs plan examples/monthly-plan.json
 node scripts/cost.mjs plan examples/monthly-plan-overage.json
+node scripts/plan-scenarios.mjs
 node --test
 ```
 
@@ -31,6 +32,8 @@ All fixtures are **illustrative inputs, not current offers**:
 | CNY 200 plan, 20 daily Credits, 20 active days using 10 Credits/day, CNY 12/day pay-as-you-go | CNY 240 pay-as-you-go versus CNY 200 plan |
 | Same plan but 25 Credits/day, confirmed wallet fallback at CNY 0.70/Credit | CNY 270 including overages, more than pay-as-you-go |
 
+The scenario command outputs 12 sets of inputs and results for 0 / 5 / 20 / 30 active days. If overages cannot fall back to the wallet, `planTotal` is `null`: the plan cannot cover the full workload.
+
 Replace fixture values with your own prices and usage. No currency conversion is performed. Plan inputs are cash costs in CNY; Credits are internal usage units, not USD or a fixed token quantity.
 
 The token example uses one input rate and one output rate. It does not automatically separate cache reads, cache writes, long-context tiers or tool fees. Reconcile those categories separately instead of treating this estimate as a complete bill.
@@ -38,6 +41,8 @@ The token example uses one input rate and one output rate. It does not automatic
 ## Practical guides
 
 **curl works but the SDK fails?** [Inspect requests offline with the official Node SDK](docs/en/api-setup.md#sdk-request-fixture) and compare Chat `messages` with Responses `input`. No key or model call; installing the SDK requires internet access.
+
+**Is an API monthly plan actually cheaper?** [Compare 5 / 20 / 30 active days and overages in one command](docs/en/monthly-plan-vs-payg.md#compare-scenarios), including workloads that cannot be covered without wallet fallback. These are illustrative inputs, not a savings guarantee.
 
 - [Claude Code Base URL, credential-free templates and 401 checks](docs/en/claude-code.md): resolve old settings, verify Messages paths, and connect setup decisions with the Link billing guide.
 - [Gemini API setup with offline model-ID checks and a request template](docs/en/gemini-api.md): choose the protocol, keep provider keys separate and reconcile tiered billing before scaling usage.

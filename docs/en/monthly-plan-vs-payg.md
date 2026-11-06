@@ -26,6 +26,30 @@ The overage example uses 25 Credits/day for 20 days: 100 Credits exceed the dail
 
 Without wallet fallback the output is `covered: false` and `planTotal: null`, not a claim that CNY 200 covers all work. A missing overage rate is an error, not free overage.
 
+<a id="compare-scenarios"></a>
+## Compare active days and three allowance scenarios in one command
+
+Run from the repository directory. No dependencies, account, API key or network access are required:
+
+```bash
+node scripts/plan-scenarios.mjs
+```
+
+The command reads the two JSON fixtures above and outputs 12 rows: three scenarios at 0 / 5 / 20 / 30 active days. Bundled inputs produce these CNY amounts:
+
+| Active days | Pay-as-you-go | Within allowance (10 Credits/day) | Wallet fallback (25 Credits/day) | No fallback (25 Credits/day) |
+| --- | --- | --- | --- | --- |
+| 0 | 0 | 200 | 200 | 200, no workload |
+| 5 | 60 | 200 | 217.50 | Full workload not covered |
+| 20 | 240 | 200 | 270 | Full workload not covered |
+| 30 | 360 | 200 | 305 | Full workload not covered |
+
+**Each scenario assumes CNY 12/day pay-as-you-go for its own workload.** The 10-Credit and 25-Credit cases are separate illustrations, not evidence that pay-as-you-go stays unchanged when usage increases, nor a Credit-to-currency exchange rate. Verify matching `dailyPayg` and `dailyUsage` for each real workload.
+
+The output marks `illustrative: true`, not live prices or billing evidence. Each row includes `input`, `result` and its source file. With overages, `overage-without-fallback` returns `covered: false` and `planTotal: null`, not zero cost. The full purchased plan fee still counts with zero usage.
+
+Replace prices and usage in the two JSON fixtures to rerun. The command overrides only `usageDays`, plus `walletFallback: false` in the third scenario, without rewriting files. Equal daily workloads, no allowance carryover and no refunds remain assumptions.
+
 | JSON field | Meaning |
 | --- | --- |
 | `planPrice` | Full 30-day cash payment in CNY |
