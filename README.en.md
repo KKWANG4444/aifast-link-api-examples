@@ -40,6 +40,8 @@ The token example uses one input rate and one output rate. It does not automatic
 
 ## Practical guides
 
+- [Hermes Agent named provider and key-free checks](docs/en/hermes-agent.md): a complete JSON template, separate key variable, Chat Completions path and auxiliary-route caveats. `node scripts/hermes-config.mjs` checks the template without launching Hermes, changing your default provider or making model requests.
+
 **curl works but the SDK fails?** [Inspect requests offline with the official Node SDK](docs/en/api-setup.md#sdk-request-fixture) and compare Chat `messages` with Responses `input`. No key or model call; installing the SDK requires internet access.
 
 **Is an API monthly plan actually cheaper?** [Compare 5 / 20 / 30 active days and overages in one command](docs/en/monthly-plan-vs-payg.md#compare-scenarios), including workloads that cannot be covered without wallet fallback. These are illustrative inputs, not a savings guarantee.

@@ -11,6 +11,8 @@ const protocolReferences = new Set([
   'https://developers.openai.com/api/docs/guides/prompt-caching',
 ]);
 const sdkReferences = new Set([
+  'https://hermes-agent.nousresearch.com/docs/integrations/providers',
+  'https://hermes-agent.nousresearch.com/docs/user-guide/configuration',
   'https://github.com/openai/openai-node',
   'https://github.com/openai/openai-python',
 ]);

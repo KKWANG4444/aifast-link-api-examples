@@ -53,6 +53,8 @@ Token 算例仅有一种输入单价和一种输出单价，不会自动区分�
 
 ## 接入前先区分协议
 
+[Hermes Agent 命名 Provider 与无密钥检查](docs/hermes-agent.md)：完整 JSON 模板、独立密钥变量、Chat Completions 路径及辅助任务边界。运行 `node scripts/hermes-config.mjs` 只检查模板，不启动 Hermes、不改默认提供商、不发起模型请求。
+
 Codex 模板使用独立的 `aifast_link` Provider、Profile 和 `AIFAST_LINK_API_KEY`，不替换默认提供商。[下载模板与最小文件任务](examples/codex)后按指南核对；模板与离线测试不是模型调用成功的证明。
 
 | 使用场景 | Link 配置入口 | 需要单独验证 |

@@ -1,0 +1,11 @@
+{
+  "providers": {
+    "aifast_link": {
+      "api": "https://www.aifast.link/v1",
+      "key_env": "AIFAST_LINK_API_KEY",
+      "transport": "chat_completions",
+      "default_model": "YOUR_MODEL_ID",
+      "discover_models": false
+    }
+  }
+}
