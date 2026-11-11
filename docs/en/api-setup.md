@@ -50,6 +50,10 @@ npm test --prefix examples/sdk
 
 Source: [offline request capture](../../examples/sdk/capture-request.mjs). `YOUR_MODEL_ID` is a placeholder; `fixtureOnly: true` means no model was tested. Do not present this output as a live success report. A regression case also shows how a full endpoint in `baseURL` causes `/chat/completions` to be appended twice.
 
+The [three raw request records](../../examples/sdk/observed-requests.json), captured locally on 2026-11-11, cover Chat, Responses and an incorrectly duplicated endpoint. They explicitly set `liveCallVerified: false`. Tests rebuild and compare the requests using the same pinned SDK without reading real keys or contacting Link. No account is needed to inspect, download or reproduce them; the fixture response is not a live-call result.
+
+[Compare the paths and fields in Link Docs](https://docs.aifast.link/en/reference/api-compatibility/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_en_fixture_result#sdk-offline-result)
+
 Official option mapping: Python uses `base_url`, `max_retries=0` and `timeout=30.0` (seconds); Node uses `baseURL`, `maxRetries: 0` and `timeout: 30000` (milliseconds). SDK retries are separate from application-level retries; disable the outer retry loop while diagnosing too.
 
 References: [OpenAI Node SDK](https://github.com/openai/openai-node) and [OpenAI Python SDK](https://github.com/openai/openai-python). Source and local fixtures establish request construction, not provider availability, model identity or billing behavior.
