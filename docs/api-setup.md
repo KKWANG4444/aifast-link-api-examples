@@ -52,6 +52,10 @@ npm test --prefix examples/sdk
 
 源码：[离线请求捕获](../examples/sdk/capture-request.mjs)。输出中的 `YOUR_MODEL_ID` 是占位符，`fixtureOnly: true` 表示没有模型实测，不能直接作为线上成功报告。错误 Base URL 的回归用例还展示：把完整端点填进 `baseURL` 会再次追加 `/chat/completions`。
 
+2026-11-11 本地运行的[三组原始请求记录](../examples/sdk/observed-requests.json)包含 Chat、Responses 和一个重复端点的错误配置。记录标明 `liveCallVerified: false`；测试会使用同一固定 SDK 重新构造请求并比对记录，不读取真实 Key 或访问 Link。无需账号即可查看、下载和复核，不把其中的演示响应当作线上调用结果。
+
+[在 Link 文档中对照请求路径与字段](https://docs.aifast.link/reference/api-compatibility/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=setup_zh_fixture_result#sdk-offline-result)
+
 官方参数对照：Python 为 `base_url`、`max_retries=0`、`timeout=30.0`（秒）；Node 为 `baseURL`、`maxRetries: 0`、`timeout: 30000`（毫秒）。官方 SDK 的重试行为不等于业务自己的重试逻辑；排错时也应关闭调用外层的自动重试。
 
 依据：[OpenAI Node SDK](https://github.com/openai/openai-node)、[OpenAI Python SDK](https://github.com/openai/openai-python)。源码和本地模拟只证明客户端请求构造，不证明服务商可用性、模型身份或计费结果。

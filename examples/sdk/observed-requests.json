@@ -1,0 +1,80 @@
+{
+  "capturedAt": "2026-11-11T09:46:27.951Z",
+  "scope": "offline-request-construction",
+  "fixtureOnly": true,
+  "liveCallVerified": false,
+  "sdkVersion": "7.53.0",
+  "sourceCommit": "f606170d9666f807cf75f695652be31d56392431",
+  "cases": [
+    {
+      "protocol": "chat",
+      "baseURL": "https://www.aifast.link/v1",
+      "result": {
+        "fixtureOnly": true,
+        "sdkVersion": "7.53.0",
+        "protocol": "chat",
+        "requests": [
+          {
+            "url": "https://www.aifast.link/v1/chat/completions",
+            "method": "POST",
+            "body": {
+              "model": "YOUR_MODEL_ID",
+              "messages": [
+                {
+                  "role": "user",
+                  "content": "Reply with OK only."
+                }
+              ],
+              "stream": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "protocol": "responses",
+      "baseURL": "https://www.aifast.link/v1",
+      "result": {
+        "fixtureOnly": true,
+        "sdkVersion": "7.53.0",
+        "protocol": "responses",
+        "requests": [
+          {
+            "url": "https://www.aifast.link/v1/responses",
+            "method": "POST",
+            "body": {
+              "model": "YOUR_MODEL_ID",
+              "input": "Reply with OK only.",
+              "stream": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "protocol": "chat",
+      "baseURL": "https://www.aifast.link/v1/chat/completions",
+      "result": {
+        "fixtureOnly": true,
+        "sdkVersion": "7.53.0",
+        "protocol": "chat",
+        "requests": [
+          {
+            "url": "https://www.aifast.link/v1/chat/completions/chat/completions",
+            "method": "POST",
+            "body": {
+              "model": "YOUR_MODEL_ID",
+              "messages": [
+                {
+                  "role": "user",
+                  "content": "Reply with OK only."
+                }
+              ],
+              "stream": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

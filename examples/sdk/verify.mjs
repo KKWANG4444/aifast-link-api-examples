@@ -1,6 +1,32 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFile } from 'node:fs/promises';
 import { captureRequest } from './capture-request.mjs';
+
+test('公开离线记录与固定 SDK 的三组请求一致，且不冒充线上验证', async () => {
+  const record = JSON.parse(await readFile(new URL('./observed-requests.json', import.meta.url), 'utf8'));
+  assert.equal(record.scope, 'offline-request-construction');
+  assert.equal(record.fixtureOnly, true);
+  assert.equal(record.liveCallVerified, false);
+  assert.equal(record.sdkVersion, '7.53.0');
+  assert.equal(record.cases.length, 3);
+  const expectedInputs = [
+    ['chat', 'https://www.aifast.link/v1'],
+    ['responses', 'https://www.aifast.link/v1'],
+    ['chat', 'https://www.aifast.link/v1/chat/completions'],
+  ];
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = () => { throw new Error('记录复核禁止真实网络'); };
+  try {
+    for (const [index, entry] of record.cases.entries()) {
+      assert.deepEqual([entry.protocol, entry.baseURL], expectedInputs[index]);
+      assert.deepEqual(entry.result, await captureRequest(entry.protocol, entry.baseURL));
+    }
+    assert.doesNotMatch(JSON.stringify(record), /OFFLINE_FIXTURE_NOT_A_KEY|Authorization|Bearer|aifast\.(hk|club)/i);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
 
 test('官方 SDK 离线构建两类请求，不触发全局网络或泄漏认证头', async () => {
   const originalFetch = globalThis.fetch;
