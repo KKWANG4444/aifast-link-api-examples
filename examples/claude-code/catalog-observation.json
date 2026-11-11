@@ -1,0 +1,19 @@
+{
+  "capturedAt": "2026-11-11T11:31:37.303Z",
+  "verifiedDate": "2026-11-11",
+  "captureMethod": "unauthenticated-public-http-get",
+  "source": "https://www.aifast.link/api/pricing",
+  "sourceSha256": "25b058e82105e6b7186e55ae6105b87876ade049f1d4ac6e6f91ab4374861fd2",
+  "liveCallVerified": false,
+  "model": {
+    "id": "claude-fable-5-2",
+    "endpoints": [
+      "anthropic",
+      "openai"
+    ],
+    "groups": [
+      "Claude Code 稳定分组",
+      "Claude Code 专属分组"
+    ]
+  }
+}
