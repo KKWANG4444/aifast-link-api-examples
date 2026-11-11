@@ -2,7 +2,17 @@
 
 [English](en/gemini-api.md) · [返回仓库](../README.md) · [Link Gemini 完整教程](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_zh_guide)
 
-本指南由 AIFast Link 运营方维护，不是 Google 官方项目。2026-11-02 核对了 Link 公开目录：Gemini 使用独立分组，声明 OpenAI 兼容和 Gemini 原生接口。**公开上架、下面的离线测试，都不等于你的 Key 有权限或模型已调用成功。** 没有执行带 Key 的付费验收。
+本指南由 AIFast Link 运营方维护，不是 Google 官方项目。2026-11-12 核对了 Link 公开目录：Gemini 使用独立分组，声明 OpenAI 兼容和 Gemini 原生接口。**公开上架、下面的离线测试，都不等于你的 Key 有权限或模型已调用成功。** 没有执行带 Key 的付费验收。
+
+## gemini-4-carbon：先核对模型、分组和价格
+
+2026-11-12 的公开目录已列出 `gemini-4-carbon`，分组为 `Gemini`，声明接口为 `gemini` 和 `openai`，计费模式为 `tiered_expr`。[公开目录记录](../examples/gemini/catalog-observation.json)保留抓取时间、来源与响应哈希；这不是模型调用、身份或计费测试，也不是 Google 官方发布认证。
+
+使用 OpenAI 兼容客户端时，Base URL 为 `https://www.aifast.link/v1`，模型 ID 完整填写 `gemini-4-carbon`。先按下方步骤核对同一 Key 的模型权限，再决定是否发送请求。现有示例保留 `gemini-2.5-flash` 作为演示，不会自动替你切换模型。
+
+[查看新型号接入说明](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=carbon_zh#carbon) · [查看模型详情与当前价格](https://www.aifast.link/pricing/gemini-4-carbon?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=carbon_zh_pricing)
+
+Gemini 不默认包含在 GPT / Claude 月卡中。目录声明不代替原生鉴权、流式、图像、工具与实际账单验收；本指南不承诺固定折扣、上下文或响应速度。
 
 ## 先选协议，再填写地址
 
@@ -55,7 +65,7 @@ curl --fail-with-body --silent --show-error \
 
 ## 第三步：用真实账单比较成本
 
-Gemini 不默认包含在 GPT / Claude 月卡中。先在 [Link 模型广场](https://www.aifast.link/pricing?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_zh_pricing)核对模型与分组；2026-11-02 的公开 Gemini 条目采用阶梯表达式计费，不能把单个倍率当成最终价格。
+Gemini 不默认包含在 GPT / Claude 月卡中。先在 [Link 模型广场](https://www.aifast.link/pricing?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_zh_pricing)核对模型与分组；2026-11-12 的公开 Gemini 条目采用阶梯表达式计费，不能把单个倍率当成最终价格。
 
 单一输入、输出费率的文本任务可使用 [免费 API 成本计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_zh_cost#usage-to-cost)；有缓存、长上下文阶梯、思考输出或工具费用时，按账单类别分别核对。不要只比较模型列表中的一个数字，也不要把 Token 总数同时算进输入和输出。
 

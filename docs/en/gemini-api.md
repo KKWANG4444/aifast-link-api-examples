@@ -2,7 +2,17 @@
 
 [简体中文](../gemini-api.md) · [Repository](../../README.en.md) · [Full Link Gemini guide](https://docs.aifast.link/en/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_en_guide)
 
-Maintained by the AIFast Link operator, not an official Google project. Link's public catalog checked on 2026-11-02 declares a separate Gemini group and OpenAI-compatible and Gemini-native endpoints. **Catalog presence and the offline checks below do not prove access for your key or a successful model call.** No authenticated paid acceptance test was performed.
+Maintained by the AIFast Link operator, not an official Google project. Link's public catalog checked on 2026-11-12 declares a separate Gemini group and OpenAI-compatible and Gemini-native endpoints. **Catalog presence and the offline checks below do not prove access for your key or a successful model call.** No authenticated paid acceptance test was performed.
+
+## gemini-4-carbon: check the model, group and pricing
+
+The public catalog checked on 2026-11-12 lists `gemini-4-carbon` in the `Gemini` group with `gemini` and `openai` endpoint declarations and `tiered_expr` billing. The [public catalog observation](../../examples/gemini/catalog-observation.json) preserves its capture time, source and response hash. This is not a model-call, identity or billing test, nor certification of an official Google release.
+
+For an OpenAI-compatible client, use `https://www.aifast.link/v1` as the Base URL and the exact model ID `gemini-4-carbon`. Check model access with the same key using the steps below before sending a request. The existing example keeps `gemini-2.5-flash` as its demonstration model; it does not switch models for you.
+
+[New model setup notes](https://docs.aifast.link/en/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=carbon_en#carbon) · [Model detail and current pricing](https://www.aifast.link/pricing/gemini-4-carbon?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=carbon_en_pricing)
+
+Do not assume GPT / Claude monthly plans include Gemini. Catalog declarations do not verify native authentication, streaming, images, tools or actual billing. This guide promises no fixed discount, context length or response speed.
 
 ## Choose the protocol first
 
@@ -55,7 +65,7 @@ Record the HTTP status, valid `choices` content, returned model field, `usage` a
 
 ## Step 3: compare costs using actual billing
 
-Do not assume GPT / Claude monthly plans include Gemini. Check the model and group in [Link pricing](https://www.aifast.link/pricing?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_en_pricing). Public Gemini entries on 2026-11-02 use tiered-expression billing; a single ratio is not the final price.
+Do not assume GPT / Claude monthly plans include Gemini. Check the model and group in [Link pricing](https://www.aifast.link/pricing?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_en_pricing). Public Gemini entries on 2026-11-12 use tiered-expression billing; a single ratio is not the final price.
 
 Use the [free API cost calculator](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=gemini_en_cost#usage-to-cost) for text tasks with one input rate and one output rate. Reconcile caching, long-context tiers, thinking output and tool charges by billing category. Do not compare only one catalog number or count total tokens as both input and output.
 
