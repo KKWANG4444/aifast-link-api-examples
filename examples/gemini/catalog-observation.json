@@ -1,0 +1,14 @@
+{
+  "capturedAt": "2026-11-11T19:53:50.529Z",
+  "verifiedDate": "2026-11-12",
+  "captureMethod": "unauthenticated-public-http-get",
+  "source": "https://www.aifast.link/api/pricing",
+  "sourceSha256": "072a6758dc438c6f51e8ef60126e09f99eb0de8c485a6fcc0ee458231ba07c69",
+  "liveCallVerified": false,
+  "model": {
+    "id": "gemini-4-carbon",
+    "endpoints": ["gemini", "openai"],
+    "groups": ["Gemini"],
+    "billingMode": "tiered_expr"
+  }
+}
