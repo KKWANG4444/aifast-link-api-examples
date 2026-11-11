@@ -31,8 +31,15 @@
 | 文本正常但工具失败 | SSE 事件、工具参数、工具结果 | 真实任务结果，不能用短文本代替 |
 | 月卡还有额度却不能调用 | 模型分组、当日额度、扣费偏好 | 当前账号套餐规则与账单 |
 
-## 留下一份可复核结果
+## claude-fable-5-2：目录上架不等于所有月卡可用
 
+2026-11-11 的 [Link 公开目录记录](../examples/claude-code/catalog-observation.json)列出 `claude-fable-5-2`，声明接口为 `anthropic` 与 `openai`，分组为“Claude Code 稳定分组”和“Claude Code 专属分组”。这是无密钥目录查询，不是模型调用、身份或计费测试。
+
+使用同一个 Link 账号核对 Key、模型与套餐分组。月卡有剩余额度但请求失败，先检查分组匹配；不要把所有 Claude 月卡视为相同权限，也不要通过反复充值排查路径错误。
+
+[模型目录详情与当前价格](https://www.aifast.link/pricing/claude-fable-5-2?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_zh_fable) · [对应的中文接入说明](https://docs.aifast.link/providers/claude-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_zh_catalog#fable-5-2)
+
+## 留下一份可复核结果
 记录日期、客户端版本、最终域名/路径、模型 ID、状态码、流式是否完整、工具是否真正执行以及账单用量。只保留脱敏结果；没有验证的项写“未测”，不要写成通过。官方网关规范是核对依据，不是对 Link 的背书。
 
 [完整配置与官方来源](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_zh_setup) · [按量与月卡范围](https://docs.aifast.link/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_zh_payment) · [计算使用成本](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_zh_cost)

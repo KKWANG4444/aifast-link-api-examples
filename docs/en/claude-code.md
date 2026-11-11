@@ -31,8 +31,15 @@ Record `claude --version`, then check the active base URL and credential source 
 | Text works but tools fail | SSE events, tool arguments and tool results | Completed task output, separately from a text probe |
 | Plan allowance remains but requests fail | Group, daily allowance and billing preference | Current account terms and usage records |
 
-## Keep a reviewable result
+## claude-fable-5-2: a listing does not grant access to every plan
 
+The [public Link catalog observation](../../examples/claude-code/catalog-observation.json) captured on 2026-11-11 lists `claude-fable-5-2`, with `anthropic` and `openai` endpoints and the groups `Claude Code 稳定分组` (stable) and `Claude Code 专属分组` (dedicated). This key-free catalog check is not a model-call, identity or billing test.
+
+Match the key, model and plan group in the same Link account. If allowance remains but requests fail, check group eligibility first. Claude plans do not all grant the same access, and adding funds does not fix an incorrect request path.
+
+[Catalog entry and current prices](https://www.aifast.link/pricing/claude-fable-5-2?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_en_fable) · [Matching English setup guide](https://docs.aifast.link/en/providers/claude-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_en_catalog#fable-5-2)
+
+## Keep a reviewable result
 Record the date, client version, final host/path, model ID, status, stream completion, actual tool execution and billed usage. Sanitize the record and mark untested items as untested. Official gateway documentation is a reference, not an endorsement of Link.
 
 [Full setup and official references](https://docs.aifast.link/en/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_en_setup) · [Pay-as-you-go and monthly plans](https://docs.aifast.link/en/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_en_payment) · [Estimate usage costs](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=claude_en_cost)

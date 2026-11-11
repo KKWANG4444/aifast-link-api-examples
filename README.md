@@ -16,7 +16,7 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
-| Claude Code 的 ANTHROPIC_BASE_URL、401 与旧配置冲突 | [无密钥模板与检查步骤](docs/claude-code.md) | [Claude Code 配置与认证排查](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_claude_fixture) |
+| Claude Code 的 ANTHROPIC_BASE_URL、401 与 claude-fable-5-2 分组 | [无密钥模板、目录记录与检查步骤](docs/claude-code.md) | [Claude Code 配置与认证排查](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_claude_fixture) |
 | Gemini API 中转、模型 ID、协议与费用核对 | [离线 ID 检查与请求模板](docs/gemini-api.md) | [Gemini 接入教程](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_gemini_fixture) |
 | Codex 自定义 Provider、401、Responses 与文件回写验收 | [可下载配置与逐项检查](docs/codex-provider.md) | [完整 Codex 教程](https://docs.aifast.link/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_codex_fixture) |
 | 计算 Token 与已计费重试成本 | [成本公式与可运行算例](docs/token-cost.md) | [浏览器计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_token) |
