@@ -4,6 +4,8 @@
 
 [下载成本算例与 SDK 示例](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token 成本公式与输入字段](docs/token-cost.md)
 
+**无需下载，先复算一次：** [在浏览器打开 17.05 美元公开演示](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_example#cost-example)。与下方离线 Token 算例使用相同参数；不需要注册或 API Key。金额是演示结果，不是 Link 报价，分享链接不包含用户输入。
+
 这是 **AIFast Link 的独立公开示例仓库**，仅对应 `www.aifast.link` 和 `docs.aifast.link`，不是模型厂商官方项目。
 
 Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组的 GPT / Claude 月卡。这里帮助你先核对接口、权限和完整任务成本，再选择方案。**Gemini 使用独立分组，不能默认包含在 GPT / Claude 月卡中。**

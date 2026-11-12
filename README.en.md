@@ -4,6 +4,8 @@
 
 [Download cost and SDK examples](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token cost formula and input fields](docs/en/token-cost.md)
 
+**Try it without downloading:** [Open the $17.05 public example in your browser](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_example#cost-example). It uses the same inputs as the offline token example below. No signup or API key required. This is an illustrative result, not a Link price quote; the shared link contains no user inputs.
+
 A dedicated public example repository for **AIFast Link**, covering only `www.aifast.link` and `docs.aifast.link`. This is not an official project of OpenAI, Anthropic or Google.
 
 Estimate token costs, account for **billed retries**, and compare pay-as-you-go with daily-allowance monthly plans before choosing a configuration. Link lists GPT, Claude and Gemini models; GPT / Claude plans apply to specified groups. **Do not assume those plans include the separate Gemini group.**

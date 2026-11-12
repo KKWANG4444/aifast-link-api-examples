@@ -80,6 +80,20 @@ test('中英文入口包含下载及完整 Token 字段说明', () => {
   }
 });
 
+test('公开演示深链对应同语言计算器，保留独立归因且不携带账单输入', () => {
+  for (const [file, prefix, language] of [['README.md', '', 'zh'], ['README.en.md', 'en/', 'en']]) {
+    const content = readFileSync(resolve(root, file), 'utf8');
+    const links = [...content.matchAll(/\]\((https:\/\/docs\.aifast\.link[^)]+#cost-example)\)/g)];
+    assert.equal(links.length, 1);
+    const url = new URL(links[0][1]);
+    assert.equal(url.pathname, `/${prefix}tools/api-cost-calculator/`);
+    assert.equal(url.searchParams.get('utm_content'), `readme_${language}_example`);
+    assert.deepEqual([...url.searchParams.keys()].sort(), ['utm_campaign', 'utm_content', 'utm_medium', 'utm_source']);
+    assert.match(content, language === 'en' ? /not a Link price quote/ : /不是 Link 报价/);
+    assert.match(content, language === 'en' ? /contains no user inputs/ : /不包含用户输入/);
+  }
+});
+
 test('成本说明提供同语言用量深链并区分聚合与缓存计费', () => {
   for (const [file, prefix] of [['docs/token-cost.md', ''], ['docs/en/token-cost.md', 'en/']]) {
     const content = readFileSync(resolve(root, file), 'utf8');
