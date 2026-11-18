@@ -1,0 +1,33 @@
+{
+  "capturedAt": "2026-11-18T00:13:31.298Z",
+  "verifiedDate": "2026-11-18",
+  "captureMethod": "unauthenticated-public-http-get",
+  "source": "https://www.aifast.link/api/pricing",
+  "sourceSha256": "3c2203bc2a921b5931fe2c29e92dda74c02df1bb4f96033b851f0fb0b5a8ad93",
+  "pricingVersion": "a42d372ccf0b5dd13ecf71203521f9d2",
+  "liveCallVerified": false,
+  "models": [
+    {
+      "id": "gpt-6.2-sol",
+      "groups": [
+        "Codex 稳定分组",
+        "Codex 专属分组"
+      ],
+      "endpoints": [
+        "openai"
+      ],
+      "billingMode": "tiered_expr"
+    },
+    {
+      "id": "gpt-6.2-astra",
+      "groups": [
+        "Codex 稳定分组",
+        "Codex 专属分组"
+      ],
+      "endpoints": [
+        "openai"
+      ],
+      "billingMode": "tiered_expr"
+    }
+  ]
+}

@@ -42,6 +42,8 @@ The token example uses one input rate and one output rate. It does not automatic
 
 ## Practical guides
 
+**GPT-6.2 Astra / Sol are listed on Link:** exact IDs are `gpt-6.2-astra` and `gpt-6.2-sol`. The public catalog checked on November 18, 2026 lists Codex stable and dedicated groups with the `openai` endpoint declaration. This is not proof of a successful call, Responses support or plan eligibility. [Setup and group checks](docs/en/gpt62-api.md) · [Link model details and configuration](https://docs.aifast.link/en/providers/openai-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_gpt62#gpt-6-2).
+
 - [Hermes Agent named provider and key-free checks](docs/en/hermes-agent.md): a complete JSON template, separate key variable, Chat Completions path and auxiliary-route caveats. `node scripts/hermes-config.mjs` checks the template without launching Hermes, changing your default provider or making model requests.
 
 **curl works but the SDK fails?** [Inspect requests offline with the official Node SDK](docs/en/api-setup.md#sdk-request-fixture) and compare Chat `messages` with Responses `input`. No key or model call; installing the SDK requires internet access.

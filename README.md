@@ -12,6 +12,8 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 
 ## 先解决一个具体问题
 
+**GPT-6.2 Astra / Sol 已进入 Link 目录：** 精确 ID 为 `gpt-6.2-astra`、`gpt-6.2-sol`。2026-11-18 公开目录列出 Codex 稳定与专属分组，声明 `openai` 端点；这不是调用成功、Responses 或月卡资格的证明。[接入与分组核对](docs/gpt62-api.md) · [Link 实时模型详情与配置](https://docs.aifast.link/providers/openai-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_gpt62#gpt-6-2)。
+
 **curl 成功、SDK 却失败？** [用官方 Node SDK 离线查看请求](docs/api-setup.md#sdk-request-fixture)，对照 Chat 的 `messages` 与 Responses 的 `input`。不需要 Key，不调用模型；安装 SDK 时需要联网。
 
 **API 月卡到底省不省？** [一条命令比较 5／20／30 天和超额情形](docs/monthly-plan-vs-payg.md#compare-scenarios)，同时列出无钱包回退时无法完成的工作量。使用演示数据，不是套餐优惠承诺。
