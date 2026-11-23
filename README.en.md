@@ -4,6 +4,8 @@
 
 [Download cost and SDK examples](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token cost formula and input fields](docs/en/token-cost.md)
 
+**Catalog sync:** On November 22, 2026, the Link documentation catalog was rechecked for public entries for GPT-6.2 Astra / Sol and Gemini 4 Carbon / Hydrogen. The key-free catalog snapshots below retain their original capture dates; listing a model does not prove account access, a successful call or plan eligibility.
+
 **Try it without downloading:** [Open the $17.05 public example in your browser](https://docs.aifast.link/en/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_en_example#cost-example). It uses the same inputs as the offline token example below. No signup or API key required. This is an illustrative result, not a Link price quote; the shared link contains no user inputs.
 
 A dedicated public example repository for **AIFast Link**, covering only `www.aifast.link` and `docs.aifast.link`. This is not an official project of OpenAI, Anthropic or Google.
@@ -51,7 +53,7 @@ The token example uses one input rate and one output rate. It does not automatic
 **Is an API monthly plan actually cheaper?** [Compare 5 / 20 / 30 active days and overages in one command](docs/en/monthly-plan-vs-payg.md#compare-scenarios), including workloads that cannot be covered without wallet fallback. These are illustrative inputs, not a savings guarantee.
 
 - [Claude Code Base URL, credential-free templates and 401 checks](docs/en/claude-code.md): resolve old settings, verify Messages paths, and review the public claude-fable-5-2 group record before choosing a Link plan.
-- [Gemini API setup with offline model-ID checks and a request template](docs/en/gemini-api.md): review the public gemini-4-carbon group record, choose the protocol, keep provider keys separate and reconcile tiered billing before scaling usage.
+- [Gemini API setup with offline model-ID checks and a request template](docs/en/gemini-api.md): review the public gemini-4-carbon / gemini-4-hydrogen group records, choose the protocol, keep provider keys separate and reconcile tiered billing before scaling usage.
 - [Downloadable Codex provider, profile and file-task checks](docs/en/codex-provider.md): keep your default provider, isolate the Link key, and diagnose 401, Responses paths and empty `git diff` results. Offline checks are not a live model test.
 - [Token cost formula, billed retries and cache limits](docs/en/token-cost.md): field definitions and a reproducible $17.05 example.
 - [OpenAI compatible API and SDK troubleshooting](docs/en/api-setup.md): Base URL, curl-versus-SDK differences, unsupported parameters, Codex Responses, Claude Code Messages and Gemini scope.

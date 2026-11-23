@@ -4,6 +4,8 @@
 
 [下载成本算例与 SDK 示例](https://github.com/KKWANG4444/aifast-link-api-examples/releases/latest) · [Token 成本公式与输入字段](docs/token-cost.md)
 
+**目录同步：** 2026-11-22 已复核 Link 文档目录包含 GPT-6.2 Astra / Sol 与 Gemini 4 Carbon / Hydrogen 的公开入口。下方无密钥目录快照仍保留各自原始采集日期；目录存在不等于账号权限、调用成功或套餐适用。
+
 **无需下载，先复算一次：** [在浏览器打开 17.05 美元公开演示](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_example#cost-example)。与下方离线 Token 算例使用相同参数；不需要注册或 API Key。金额是演示结果，不是 Link 报价，分享链接不包含用户输入。
 
 这是 **AIFast Link 的独立公开示例仓库**，仅对应 `www.aifast.link` 和 `docs.aifast.link`，不是模型厂商官方项目。
@@ -21,7 +23,7 @@ Link 提供 GPT、Claude、Gemini API 接入，以及按量使用和指定分组
 | 任务 | 本仓库内容 | Link 实际工具或教程 |
 | --- | --- | --- |
 | Claude Code 的 ANTHROPIC_BASE_URL、401 与 claude-fable-5-2 分组 | [无密钥模板、目录记录与检查步骤](docs/claude-code.md) | [Claude Code 配置与认证排查](https://docs.aifast.link/tools/claude-code/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_claude_fixture) |
-| Gemini API 中转、gemini-4-carbon 分组、协议与费用核对 | [离线 ID 检查与请求模板](docs/gemini-api.md) | [Gemini 接入教程](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_gemini_fixture) |
+| Gemini API 中转、gemini-4-carbon / gemini-4-hydrogen 分组、协议与费用核对 | [离线 ID 检查与请求模板](docs/gemini-api.md) | [Gemini 接入教程](https://docs.aifast.link/providers/gemini-api/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_gemini_fixture) |
 | Codex 自定义 Provider、401、Responses 与文件回写验收 | [可下载配置与逐项检查](docs/codex-provider.md) | [完整 Codex 教程](https://docs.aifast.link/tools/codex/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_codex_fixture) |
 | 计算 Token 与已计费重试成本 | [成本公式与可运行算例](docs/token-cost.md) | [浏览器计算器](https://docs.aifast.link/tools/api-cost-calculator/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_token) |
 | 比较按量与月卡，避免闲置或超额 | [月卡成本比较](docs/monthly-plan-vs-payg.md) | [计费与套餐范围](https://docs.aifast.link/payment/?utm_source=github&utm_medium=repository&utm_campaign=link_api_examples&utm_content=readme_zh_payment) |
